@@ -1,0 +1,14 @@
+newmtl Bilbao_da7712a6-ee69-4a36-8ddd-17cf2183192e
+Kd 1.000 1.000 1.000
+d 1.000
+map_Kd Moon3DTexture.jpg
+newmtl Windsurf_b9a17946-1b40-4848-9bf8-07092a988cdf
+Kd 1.000 0.000 0.000
+d 1.000
+newmtl Jasper_0ed97983-c01a-42d3-9736-9299f914707b
+Kd 1.000 1.000 1.000
+d 1.000
+map_Kd Earth.jpg
+newmtl Bavarian_10b86e5d-4535-45f5-8173-d84633bb61d4
+Kd 1.000 0.600 0.000
+d 1.000
