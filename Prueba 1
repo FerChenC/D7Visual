@@ -1,38 +1,150 @@
-/**
- * Move Eye. 
- * by Simon Greenwold.
- * 
- * The camera lifts up (controlled by mouseY) while looking at the same point.
- */
+/*
+ Tarea 1 "P3D" 
+ EStudiantes: Fernando-Kevin-Carolina
+ Diseño 7 Comunicación Visual
 
-void setup() {
-  size(640, 360, P3D);
-  fill(204);
+*/
+
+
+// Imagenes y texturas
+PImage img;
+PImage textureTR;
+PImage textureSL;
+PImage textureLU;
+
+PShape globeTR;
+PShape globeSL;
+PShape globeLU;
+
+// Velocidades 
+float giroTR,giroSol,giroLuna;
+
+boolean tierraGirando = true;
+boolean solGirando = true;
+boolean lunaGirando = true;
+
+// Font
+PFont font1;
+
+
+void setup () { //------------------------------------------------ SET UP
+
+   size(1000, 600, P3D); 
+   img = loadImage("Background.jpg");
+
+   // TIERRA
+   textureTR = loadImage("Tierra.jpg");
+   noStroke();
+   globeTR = createShape(SPHERE, 50);
+   globeTR.setTexture(textureTR);
+   giroTR = 0; // velocidad
+   
+   // SOL
+   textureSL = loadImage("Sol.jpg");
+   noStroke();
+   globeSL = createShape(SPHERE, 100);
+   globeSL.setTexture(textureSL);
+   giroSol = 0; // velocidad
+   
+   // LUNA
+   textureLU = loadImage("Luna.jpg");
+   noStroke();
+   //fill(255);
+   globeLU = createShape(SPHERE, 15);
+   globeLU.setTexture(textureLU);
+   giroLuna = 0; // velocidad
+
+   // Font
+   //font1 = loadFont("Montserrat-Regular-100.vlw");
+   font1 = createFont("Robo Girls.otf");
+
 }
 
-void draw() {
-  lights();
-  background(0);
+void draw() { //------------------------------------------------ Draw
+
+  //camera(width/2, height/2, 3000,    width/2, height/2, 0,     0, 1, 0);
+  background(img);
+
   
-  // Change height of the camera with mouseY
-  camera(30.0, mouseY, 220.0, // eyeX, eyeY, eyeZ
-         0.0, 0.0, 0.0, // centerX, centerY, centerZ
-         0.0, 1.0, 0.0); // upX, upY, upZ
+
+  // LUCES
+  //lights();
+  //ambientLight(0,0,10);
   
-  noStroke();
-  box(90);
-  stroke(255);
-  line(-100, 0, 0, 100, 0, 0);
-  line(0, -100, 0, 0, 100, 0);
-  line(0, 0, -100, 0, 0, 100);
+  //pushMatrix();
+  //translate(width/4,height/2,0);
+  
+  //spotLight(255, 255, 255, width/4,height/2, 150, width/4,height/2, 0, PI/1, 1); //directo al sol
+  //spotLight(38, 18, 5, 200, -200, 100, 0.5, 1, -1, PI, 1);
+  //popMatrix();
+ 
+  
+  // El sol
+  pushMatrix();
+  translate(width/4,height/2,0);
+  rotateY(giroSol);
+  shape(globeSL);
+  popMatrix();
+
+  // Rectangulo S-L
+  pushMatrix();
+  translate(width/2, height/2, 0);
+  fill (250,167,32,100);
+  beginShape();
+  vertex( -250, -100, -10);
+  vertex( 200, -15, -10);
+  vertex(200, 15, -10);
+  vertex(-250, 100, -10);
+  endShape(CLOSE);
+  popMatrix();
+
+ // Rectangulo L-T
+  pushMatrix();
+  translate(width/2, height/2, 0);
+  fill (250,167,32,60);
+  beginShape();
+  vertex( 300, -1, -10);
+  vertex( 200, -15, -10);
+  vertex(200, 15, -10);
+  vertex(300, 1, -10);
+  endShape(CLOSE);
+  popMatrix();
+
+  
+  spotLight(255, 255, 255, width/4, height/2 , 0, 1, 0, 0, PI, 1);
+  
+  // La tierra
+  pushMatrix();
+  translate(800,height/2,0);
+  rotateY(giroTR); 
+  shape(globeTR);
+  popMatrix();
+
+  // La Luna
+  pushMatrix();
+  translate(700,height/2,0);
+  rotateY(giroLuna);
+  //fill(255);
+  shape(globeLU);
+  popMatrix();
+  
+  
+   if (tierraGirando) giroTR -= 0.01;
+   if (solGirando) giroSol -= 0.002;
+   if (lunaGirando) giroLuna -= 0.01;
+
+   // inicio de vista 2D
+   lights();
+   camera();
+   
+   textFont (font1);
+   textAlign(CENTER);
+   textSize(50);
+   fill(255);
+   text("ECLIPSE DE SOL", width/2, height/6);
+
+   textSize(20);
+   text("Luna", 100, 400);
+   
 }
-
-
-linea de prueba
-caca
-
-linea de caro
-linea ipad
-
-linea de prueba
-kevin
+  
